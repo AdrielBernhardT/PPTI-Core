@@ -1,0 +1,833 @@
+/* Variable CSS */
+:root {
+    --header-height: 3.5rem;
+    /* Colors */
+    /* color mode Hue, Saturation, Lightness */
+    --title-color: hsl(0, 0%, 95%);
+    --text-color: hsl(0, 0%, 70%);
+    --text-color-light: hsl(0, 0%, 60%);
+    --body-color: hsl(0, 0%, 0%);
+    --container-color: hsl(0, 0%, 8%);
+    
+    /* Font and Typogrpahy */
+    /* .5rem = 8px | 1rem = 16px */
+    --body-font: "Poppins", sans-serif;
+    --second-font: "Montserrat", sans-serif;
+    --biggest-font-size: 2.75rem;
+    --h1-font-size:1.5rem;
+    --h2-font-size:1.25rem;
+    --h3-font-size:1rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+    
+    /* Font Weight */
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    
+    /* Z Index */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+/* Responsive typography */
+@media screen and (min-width: 1152) {
+    :root {
+        --biggest-font-size: 5.5rem;
+        --h1-font-size:2.5rem;
+        --h2-font-size:1.5rem;
+        --h3-font-size:1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smaller-font-size: .813rem;
+    }
+}
+
+@media screen and (min-width: 1820) {
+    :root {
+        --biggest-font-size:10.25rem;
+        --h1-font-size:5rem;
+        --h2-font-size:3rem;
+        --h3-font-size:2.5rem;
+        --normal-font-size: 2rem;
+        --small-font-size: 1.725rem;
+        --smaller-font-size: 1.626rem;
+    }
+}
+
+/* BASE */
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body,
+button,
+input{
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    color: var(--text-color);
+}
+
+body{
+    background-color: var(--body-color);
+}
+
+button,
+input{
+    outline: none;
+    border: none;
+}
+
+h1, h2, h3, h4{
+    color: var(--title-color);
+    font-family: var(--second-font);
+    font-weight: var(--font-semi-bold);
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* REUSABLE CSS CLASSES */
+.container{
+    margin-inline: 1.5rem;
+}
+
+.garis__pemisah{
+    border-bottom: 1px solid var(--title-color);
+    width: 75%;
+    justify-self: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.grid{
+    display: grid;
+    gap: 1.5rem;
+}
+
+.section{
+    padding-block: 5rem 1rem;
+}
+
+.section__title{
+    text-align: center;
+    font-size: var(--h1-font-size);
+    margin-bottom: 1.5rem;
+}
+
+.main{
+    overflow: hidden;
+}
+
+
+/* BUTTON */
+.button{
+    background-color: hsla(0, 0%, 100%, .2);
+    padding: 1.25rem 1.5rem;
+    color: var(--title-color);
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+    font-family: var(--second-font);
+    font-weight: var(--font-semi-bold);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); /* Buat Safari */
+}
+
+
+/* HEADER & NAV */
+.header{
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+    top: 0;
+    left: 0;
+    z-index: var(--z-fixed);
+}
+
+.nav{
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.nav__logo{
+    color: var(--title-color);
+    font-family: var(--second-font);
+    font-weight: var(--font-semi-bold);
+}
+
+.nav__toggle,
+.nav__close{
+    display: flex;
+    font-size: 1.25rem;
+    color: var(--title-color);
+    cursor: pointer;
+
+}
+
+.nav__logo img{
+    width: 5rem;
+}
+
+.nav__list{
+    text-align: center;
+    display:  flex;
+    flex-direction: column;
+    row-gap: 2.5rem;
+}
+
+.nav__link{
+    position: relative;
+    color: var(--title-color);
+    font-family: var(--second-font);
+    font-weight: var(--font-medium);
+}
+
+.nav__link::after{
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: var(--title-color);
+    position: absolute;
+    left: 0;
+    bottom: -.5rem;
+    transition: width .3s;
+}
+
+.nav__close{
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+}
+
+.nav__menu{
+    position: fixed;
+    top: -100%;
+    left: 0;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    width: 100%;
+    padding-block: 4rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); /* Kalau Safari */
+    transition: top .4s;     
+}
+
+/* Atas 920 */
+@media screen and (min-width: 920px) {
+    .Best__Agent {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .Best__Agent__img {
+        width: 50%;
+        padding-right: 1rem;
+        border-right: 2px solid white;
+    }
+
+    .Best__Agent__data {
+        padding-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .Best__Agent__title {
+        justify-self: left;
+        font-size: var(--h1-font-size);
+    }
+    
+    .Map__container {
+        display: grid; /* Use grid layout */
+        grid-template-columns: repeat(3, 1fr); /* Create 3 equal columns */
+        gap: 1.5rem; /* Space between grid items */
+        width: 100%; /* Ensure the grid spans the full container width */ 
+        padding: 1.5rem; /* Add padding to the top and bottom */
+    }
+
+    /* Card styles */
+    .Map__card {
+        position: relative;
+        width: 100%; /* Ensure cards take up full width of their grid cell */
+        aspect-ratio: 4/3;
+    }
+    
+    .Map__card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%; /* Fill the card container */
+        transform: none; /* Remove flipping or sliding behavior */
+        transition: none; /* Disable animation transitions */
+    }
+    
+    .Map__card-front,
+    .Map__card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%; /* Keep the card faces filling the card area */
+        backface-visibility: hidden; /* Prevent flipping if enabled */
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .Map__card-front {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 125%);
+    }
+    
+    /* Card images */
+    .Map__card-img-front,
+    .Map__card-img-back {
+        width: 100%;
+        height: 100%;
+        object-position: center;
+    }
+
+    .Agent__container{
+        justify-content: center;
+    }
+}
+
+/* Active link */
+.active-link::after{
+    width: 70%;
+}
+
+.nav__link:hover::after{
+    width: 70%;
+}
+
+/* Show menu */
+.show-menu{
+    top: 0;
+}
+
+/* Add blur to header */
+.blur-header::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, .3);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); /* Kalau Safari */
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Best Agent Home */
+.Best__Agent h1{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.Best__Agent p{
+    text-align: justify;
+    color: var(--text-color-light);
+    padding-bottom: 1rem;
+}
+
+.home{
+    position: relative;
+}
+
+.logo__header {
+    width: 35%;
+}
+
+.head__content{
+    position: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 300px;
+    padding: 5px;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.title__palo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 0%, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.head__content__img{
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    height: 100%;
+}
+
+.container__tumpuk{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+    width: fit-content;
+}
+
+.home__img__potrait{
+    width: 15%;
+    aspect-ratio: 3/4;
+}
+
+.home__container{
+    position: relative;
+    row-gap: 3rem;
+}
+
+.home__data{
+    text-align: center;
+}
+
+
+.home__title{
+    width: 100%;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
+.home_desc{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.home_desc::after{
+    width: 100%;
+    display: flex;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem; 
+}
+
+.home__description{
+    width: 70%;
+    margin-bottom: .5rem;
+    text-align: center;
+    color: var(--title-color);
+}
+
+
+
+
+/* MAPS */
+/* Card styles */
+.Map__card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 4/3;
+    scroll-snap-align: center; /* Snap card into the center */
+}
+
+.Map__card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+}
+
+.Map__card-inner.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.Map__card-front,
+.Map__card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Back face styling */
+.Map__card-back {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 125%);
+    transform: rotateY(180deg);
+}
+
+/* Card images */
+.Map__card-img-front,
+.Map__card-img-back {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card title */
+.Map__card-title {
+    border: 2px solid #fff;
+    align-self: center;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    z-index: 1;
+}
+
+
+
+.buttonPin {
+    display: flex;
+    flex-direction: column;
+    background-color: hsla(0, 0%, 100%, .2);
+    /* padding: 7.3rem 1.5rem; */
+    height: 100%;
+    color: var(--title-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: .5rem;
+    font-family: var(--second-font);
+    font-weight: var(--font-semi-bold);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); /* Buat Safari */
+}
+
+.button i{
+    font-size: 1.25rem;
+    transition: transform .4s;
+    font-weight: initial;
+}
+
+@keyframes naikturun {
+    0%   {color:red; top:0px;}
+    50%  {color:white; top:10px;}
+    100% {color:red; top:0px;}
+}
+
+.buttonPin i{
+    font-size: 1.25rem;
+    font-weight: initial;
+    position: relative;
+    padding-top: .25rem;
+    animation-name: naikturun;
+    animation-duration: .75s;
+    animation-iteration-count: infinite;
+}
+
+.button:hover i{
+    transform: translateX(.25rem);
+}
+
+
+/* AGENTS */
+.Agent__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-top: 1.5rem;
+    scroll-snap-type: x mandatory;
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.Agent__image {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 1rem;
+    height: 300px;
+    width: 200px;
+    position: relative;
+    position: center;
+}
+.Agent__img {
+    transition: transform .4s;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Agent__image:hover .Agent__img {
+    transform: scale(1.2);
+}
+
+.Agent__container .Agent__shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, hsla(0, 0%, 0%, 0) 50%, hsl(0, 0%, 0%) 125%);
+}
+
+.Agent__card{
+    color: white;
+    text-align: center;
+}
+
+.Agent__card::after{
+    text-decoration: none;
+    color: white;
+}
+
+.Agent__title {
+    font-size: var(--h1-font-size);
+    margin-bottom: .5rem;
+    text-align: center;
+}
+
+.Agent__location {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .25rem;
+    font-size: var(--small-font-size);
+    font-family: var(--second-font);
+    font-weight: 500;
+}
+
+.Agent__location i {
+    font-size: 1rem;
+}
+
+.Agent__image:hover .Agent__img {
+    transform: scale(1.2);
+}
+
+
+/* NEWS */
+.News__header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.News__subtitle{
+    font-size: var(--h3-font-size);
+    color: var(--text-color-light);
+}  
+
+
+/* Footer */
+.footer{
+    padding-block: 2.5rem;
+    background-color: var(--container-color);
+}
+
+.footer__content{
+    row-gap: 3.5rem;
+}
+
+.footer__logo{
+    display: inline-block;
+    color: var(--title-color);
+    font-size: var(--h2-font-size);
+    font-family: var(--second-font);
+    font-weight: var(--font-semi-bold);
+    margin-bottom: 1rem;   
+}
+
+.footer__data{
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    justify-content: center;
+}
+
+.footer__title{
+    font-size: var(--h3-font-size);
+    margin-bottom: 1rem;
+}
+
+.footer__links{
+    display: grid;
+    row-gap: 0.75rem;
+}
+
+.footer__link{
+    color: var(--text-color);
+    transition: color .4s;
+}
+
+.footer__link:hover{
+    color: var(--title-color);
+}
+
+.footer__group,
+.footer__social{
+    display: flex;
+}
+
+.footer__group{
+    margin-top: 5rem;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2rem;
+}
+
+.footer__social{
+    column-gap: 1.5rem;
+}
+
+.footer__social-link{
+    color: var(--text-color);
+    font-size: 1.25rem;
+    transition: color .4s, transform .4s;
+}
+
+.footer__social-link:hover{
+    color: var(--title-color);
+    transform: translateY(-.25rem);
+}
+
+.footer__copy{
+    text-align: center;
+    color: var(--text-color-light);
+    font-size: var(--small-font-size);
+}
+
+::-webkit-scrollbar{
+    width: .6rem;
+    border-radius: .5rem;
+    background-color: hsl(0, 0%, 10%);
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: .5rem;
+    background-color: hsl(0, 0%, 20%);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: hsl(0, 0%, 30%);
+}
+
+/* Scroll Up */
+.scrollup{
+    position: fixed;
+    right: 1rem;
+    bottom: -50%;
+    background-color: hsla(0, 0%, 100%, .1);
+    padding: 6px;
+    display: inline-flex;
+    color: var(--title-color);
+    font-size: 1.25rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); /* Buat Safari */
+    z-index: var(--z-tooltip);
+    transition: bottom .4s, transform .4s;
+}
+
+.scrollup:hover{
+    transform: translateY(-.25rem);
+}
+
+/* show scroll up */
+.show-scroll{
+    bottom: 3rem;
+}
+
+/* Styles for screens below 768px */
+@media screen and (max-width: 767px) {
+    .container {
+        margin-inline: 1rem;
+    }
+
+    .home__title {
+        width: 90%;
+        font-size: var(--h2-font-size);
+    }
+
+    .home__description {
+        font-size: var(--normal-font-size);
+        text-align: center;
+        color: var(--title-color);
+    }
+
+    .nav__list {
+        row-gap: 1.5rem;
+    }
+
+    .Agent__container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Agent__image {
+        height: 250px;
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .Map__container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        perspective: 1000px;
+        scrollbar-width: none; /* buat Firefox */
+    }
+
+    /* Hide scrollbars */
+    .Map__container::-webkit-scrollbar {
+        display: none; /* buat Chrome, Safari, dan Edge */
+    }
+}
