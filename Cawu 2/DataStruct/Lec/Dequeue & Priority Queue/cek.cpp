@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_SIZE 100
+
 int priorityQueue[MAX_SIZE]; 
 int queueSize=0; 
 

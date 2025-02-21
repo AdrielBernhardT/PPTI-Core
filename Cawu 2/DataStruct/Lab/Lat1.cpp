@@ -11,7 +11,7 @@ void push_ultimate(int input){
 
     current->data = input;
 
-    if!(head){
+    if(!head){
         head=tail=current;
     }
     if (head->data > input){
@@ -28,11 +28,11 @@ void push_ultimate(int input){
         current->Next = temp->Next;
         temp->Next = current;
     }
+}
     
-    void pop_ultimate(){
-        if(head == NULL){
-            return;
-        }
+void pop_ultimate(){
+    if(head == NULL){
+        return;
     }
 }
 
