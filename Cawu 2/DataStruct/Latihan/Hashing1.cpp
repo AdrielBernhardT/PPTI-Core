@@ -14,6 +14,7 @@ struct Node {
     Node *Next;
 } *head[MAX_TABLE], *tail[MAX_TABLE], *current;
 
+// Hash function sendiri buat masukin indikator ke berapanya
 int hash(const char *input) {
     int ascii = 0;
     for (int i = 0; i < strlen(input); i++) {
@@ -34,6 +35,7 @@ int hash(const char *input) {
     }
 }
 
+// Kasih push ultimate
 void push_ultimate(const char *name, const char *phone, const char *email) {
     current = (Node*)malloc(sizeof(Node));
     current->Next = NULL;
@@ -65,6 +67,7 @@ void push_ultimate(const char *name, const char *phone, const char *email) {
     }
 }
 
+// kasih pop ultimate
 void pop_ultimate(const char *name) {
     int position = hash(name);
 
@@ -87,20 +90,22 @@ void pop_ultimate(const char *name) {
     }
 }
 
+// kasih search
 void search(char *name) {
-    int position = hash(name);
+    int position = hash(name); // cari posisi
 
-    if (!head[position]) {
+    if (!head[position]) { // jika tidak ada data
         printf("Data not found\n");
         return;
     }
 
-    Node *temp = head[position];
-    while (temp && strcmp(temp->Name, name) != 0) {
+    // searching
+    Node *temp = head[position]; 
+    while (temp && strcmp(temp->Name, name) != 0) { 
         temp = temp->Next;
     }
 
-    if (temp) {
+    if (temp) { // jika data ditemukan
         printf("Name: %s\n", temp->Name);
         printf("Phone: %s\n", temp->Phone);
         printf("Email: %s\n", temp->Email);
@@ -109,12 +114,13 @@ void search(char *name) {
     }
 }
 
+// kasih view
 void view(){
     for (int i = 0; i < MAX_TABLE; i++){
-        if (head[i]){
+        if (head[i]){ // jika ada data
             printf("Index %d Collision %d: ", i, collision_count[i]);
             current = head[i];
-            while (current){
+            while (current){ // print semua data
                 printf("%s -> ", current->Name);
                 current = current->Next;
             }
