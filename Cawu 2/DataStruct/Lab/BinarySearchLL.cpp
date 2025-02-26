@@ -5,15 +5,15 @@
 struct Student{
     int id;
     char name[101];
-    struct Student *next, *prev;
+    struct Student *right, *left;
 };
 
 struct Student* CreateNewStudent(int id, const char *name){
     Student *newStudent = (struct Student*)malloc(sizeof(struct Student));
-    (newStudent)->id = id;
-    strcpy((newStudent)->name, name);
-    (newStudent)->next = NULL;
-    (newStudent)->prev = NULL;
+    newStudent->id = id;
+    strcpy(newStudent->name, name);
+    newStudent->right = NULL;
+    newStudent->left = NULL;
     return newStudent;
 }
 
@@ -22,9 +22,9 @@ struct Student *insert(struct Student *root, int id, const char *name){
         return CreateNewStudent(id, name);
     }
     if(id > root->id){
-        root->next = insert(root->next, id, name);
+        root->right = insert(root->right, id, name);
     }else{
-        root->prev = insert(root->prev, id, name);
+        root->left = insert(root->left, id, name);
     }
     return root;
 }
@@ -33,17 +33,17 @@ void inorder(struct Student *root){
     if(root == NULL){
         return;
     }
-    inorder(root->prev); // Kiri
+    inorder(root->left); // Kiri
     printf("%d %s\n", root->id, root->name); // Print
-    inorder(root->next); // Kanan
+    inorder(root->right); // Kanan
 }
 
 void postorder(struct Student *root){
     if(root == NULL){
         return;
     }
-    postorder(root->prev); // Kiri
-    postorder(root->next); // Kanan
+    postorder(root->left); // Kiri
+    postorder(root->right); // Kanan
     printf("%d %s\n", root->id, root->name); // Print
 }
 
@@ -52,8 +52,8 @@ void preorder(struct Student *root){
         return;
     }
     printf("%d %s\n", root->id, root->name); // Print
-    preorder(root->prev); // Kiri
-    preorder(root->next); // Kanan
+    preorder(root->left); // Kiri
+    preorder(root->right); // Kanan
 }
 
 struct Student *search(struct Student *root, int id){
@@ -65,9 +65,9 @@ struct Student *search(struct Student *root, int id){
         puts("Found");
         return root;
     } else if(id > root->id){
-        return search(root->next, id);
+        return search(root->right, id);
     }else{
-        return search(root->prev, id);
+        return search(root->left, id);
     }
 }
 
@@ -81,9 +81,9 @@ struct Student *update(struct Student *root, int id, const char *newName){
         strcpy(root->name, newName);
         return root;
     } else if(id > root->id){
-        return update(root->next, id, newName);
+        return update(root->right, id, newName);
     }else{
-        return update(root->prev, id, newName);
+        return update(root->left, id, newName);
     }
 }
 

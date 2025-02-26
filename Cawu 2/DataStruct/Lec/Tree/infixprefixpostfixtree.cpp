@@ -14,9 +14,19 @@ struct Node {
 // Create Node
 Node *createNode(char value){
     Node *newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = value;
+    newNode->data = value; // assign input to the data
     newNode->left = newNode->right = NULL;
     return newNode;
+}
+
+int hirearkiChar(char eq){   
+    if (eq == '^'){
+         return 3;
+    } else if (eq == '/' || eq == '*'){
+        return 2;
+    } else if (eq == '+' || eq == '-') {
+        return 1;
+    }
 }
 
 //  Check if the character is an operator
@@ -24,52 +34,65 @@ int isOperator(char c){
     return(c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
 }
 
+struct nodes *push(char eq[], int max, int start){ // build tree
+    int mid = buildInfixTree(eq, max, start); // search root
+    if (mid < start || mid > max) return NULL; // if root not found
+    struct nodes* root =  createnew(eq[mid]); // create new node
+    printf("%c ", root->value);
+    
+    root->left = push(eq, mid-1, start); // left
+    root->right = push(eq, max, mid+1); // right
+    return root;
+}
+
 // Infix tree
-Node* buildInfixTree(char *InfixEquation, int *position){
-    for (int i = 1; i < strlen(InfixEquation); i++){
-        if (isOperator(InfixEquation[i])) {
-            Node *root = createNode(InfixEquation[i]);
-            root->left = createNode(InfixEquation[i-1]);
-            root->right = createNode(InfixEquation[i+1]);
-            return root;
-            *position = i + 1;
-            break;
-        }
-        
-    }
+int buildInfixTree(char *InfixEquation){ // Baca infix equation
+    int len = strlen(InfixEquation); // Panjang InfixEquation
+    int rootIndex = 0, hirearki = 0, saveIndex = 0;
+    for (int i = 0; i < len; i++){
+        if(isOperator(InfixEquation[i])){
+            rootIndex = i;
+            hirearki = hirearkiChar(InfixEquation[i]);
+            if (hirearkiChar(InfixEquation[i]) > hirearkiChar(InfixEquation[rootIndex])){
+                    hirearki = hirearkiChar(InfixEquation[i]);
+                    rootIndex = i;
+            }
+       }
+    }  
+    return ; 
 }
 
 // Postfix Tree
-Node* buildPostfixTree(char *PostfixEquation){
-    Node* stack[105];
-    int top = -1;
-    for (int i = 0; i < strlen(PostfixEquation); i++){
-        Node *newNode = createNode(PostfixEquation[i]);
-        if(isdigit(PostfixEquation[i])){
-            stack[++top] = newNode;
-        }else if (isOperator(PostfixEquation[i])) {
-            newNode->right = stack[top--];
-            newNode->left = stack[top--];
-            stack[++top] = newNode;
+Node* buildPostfixTree(char *PostfixEquation){ // Baca postfix equation
+    Node* stack[105]; // Buat stack
+    int top = -1; // Inisialisasi top
+    for (int i = 0; i < strlen(PostfixEquation); i++){ // Selama i kurang dari panjang PostfixEquation
+        Node *newNode = createNode(PostfixEquation[i]); // Buat node baru
+        if(isdigit(PostfixEquation[i])){ // Jika karakter adalah integer
+            stack[++top] = newNode; // Masukkan ke stack
+        }else if (isOperator(PostfixEquation[i])) { // Jika karakter adalah operator
+            newNode->right = stack[top--]; // Masukkan stack ke kanan
+            newNode->left = stack[top--]; // Masukkan stack ke kiri
+            stack[++top] = newNode; // Masukkan ke stack
         }
     }
-    return stack[top];
+    return stack[top]; // Kembalikan stack
 }
 
 // Prefix Tree
-Node* buildPrefixTree(Node **root, char *PrefixEquation, int *position){
-    if(*root == NULL){
-        *root = createNode(PrefixEquation[*position]);
+Node* buildPrefixTree(Node **root, char *PrefixEquation, int *position){ // Baca prefix equation
+    if(*root == NULL){ // Jika root kosong
+        *root = createNode(PrefixEquation[*position]); // Buat node baru
     }
-    if(isOperator(PrefixEquation[*position])){
-        *position = *position + 1;
-        (*root)->left = createNode(PrefixEquation[*position]);
-        buildPrefixTree(&((*root)->left), PrefixEquation, position);
-        *position = *position + 1;
-        (*root)->right = createNode(PrefixEquation[*position]);
-        buildPrefixTree(&((*root)->right), PrefixEquation, position);
+    if(isOperator(PrefixEquation[*position])){ // Jika karakter adalah operator
+        *position = *position + 1; // skip Posisi berikutnya
+        (*root)->left = createNode(PrefixEquation[*position]); // Buat node kiri
+        buildPrefixTree(&((*root)->left), PrefixEquation, position); // Rekursi left child
+        *position = *position + 1; // skip Posisi berikutnya
+        (*root)->right = createNode(PrefixEquation[*position]); // Buat node kanan
+        buildPrefixTree(&((*root)->right), PrefixEquation, position); // Rekursi right child 
     }
-    return *root;
+    return *root; // Kembalikan root
 }
 
 // Infix
@@ -137,11 +160,17 @@ int main(){
     int position = 0;
     // Infix
     Node *rootInfix = NULL;
-    rootInfix = buildInfixTree(InfixEquation, &position);
+    *rootInfix = push(InfixEquation, strlen(InfixEquation), 0);
     printf("Infix Result: %d\n", evaluate(rootInfix));
+
     inOrder(rootInfix);
     printf("\n");
+    postOrder(rootInfix);
+    printf("\n");
+    preOrder(rootInfix);
+    printf("\n");
 
+    /*
     // Postfix
     Node* rootPostfix = buildPostfixTree(PostfixEquation);
     printf("\nPostfix Result: %d\n", evaluate(rootPostfix));
@@ -153,7 +182,6 @@ int main(){
     Node* rootPrefix = buildPrefixTree(&rootPrefix, PrefixEquation, &position);
     printf("\nPrefix Result: %d\n", evaluate(rootPrefix));
     preOrder(rootPrefix);
-
-
+    */
     return 0;
 }
